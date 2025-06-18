@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Kecamatan Babakan Ciparay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* =================================================================
+           STYLE CSS - E-GOV BABAKAN CIPARAY (ENHANCED PROFESSIONAL VERSION)
+           Enhanced by AI Assistant for modern government website design
+           ================================================================= */
+
+        /* --- 1. CSS Variables for Consistent Design --- */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #059669;
+            --accent-color: #dc2626;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        /* --- 2. Global & Typography --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* --- 3. Enhanced Header & Navigation --- */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            right: -10px;
+            bottom: -5px;
+            background: linear-gradient(135deg, var(--primary-color)20, var(--secondary-color)20);
+            border-radius: var(--radius-md);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .logo:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 80%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* --- 4. Enhanced Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- 5. Enhanced Sections --- */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(5, 150, 105, 0.03) 100%);
+            z-index: -1;
+        }
+
+        .section:nth-child(even) {
+            background: white;
+        }
+
+        .section:nth-child(even)::before {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.03) 0%, rgba(37, 99, 235, 0.03) 100%);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section > p, .section .container > p {
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* --- 8. Enhanced Form Styles --- */
+        .form-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+        }
+
+        .form-container {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .form-container.form-lg {
+            max-width: 800px;
+        }
+
+        .form-container h1 {
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input[readonly] {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+        }
+
+        /* --- 10. Enhanced Contact Page --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .contact-info p {
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .contact-info p strong {
+            color: var(--text-primary);
+        }
+        
+        .contact-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-info i {
+            width: 1.5rem;
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-map {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            height: 100%;
+            min-height: 450px;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- 11. Enhanced Footer --- */
+        .footer {
+            background: linear-gradient(135deg, var(--text-primary) 0%, #374151 100%);
+            color: white;
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .footer-links {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* --- 12. Animations --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- 13. Responsive Design --- */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .contact-map {
+                min-height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section h2 {
+                font-size: 1.75rem;
+            }
+            
+            .contact-info {
+                padding: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Babakan Ciparay</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="form-pengajuan.html">Ajukan SKD</a></li>
+                <li><a href="cek-status.html">Cek Status</a></li>
+                <li><a href="kontak.html" class="active">Kontak</a></li>
+                <li><a href="login.html" class="btn btn-primary">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h2>Hubungi Kami</h2>
+                <p>Jika Anda memiliki pertanyaan atau membutuhkan bantuan, jangan ragu untuk menghubungi kami melalui informasi di bawah ini atau datang langsung ke kantor.</p>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Informasi Kantor Kecamatan</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Jl. Soekarno Hatta No.187, Kb. Lega, Kec. Bojongloa Kidul, Kota Bandung, Jawa Barat 40235</p>
+                        <p><i class="fas fa-phone"></i> (022) 5204212</p>
+                        <p><i class="fas fa-envelope"></i> kontak@babakanciparay.bandung.go.id</p>
+                        <p><i class="fas fa-clock"></i> <strong>Jam Pelayanan:</strong><br>
+                            Senin - Jumat: 08:00 - 15:00 WIB<br>
+                            Sabtu - Minggu: Libur
+                        </p>
+                    </div>
+                    <div class="contact-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.710649796443!2d107.59125487586565!3d-6.925184367776407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e61e76527581%3A0x21175655787610a3!2sKantor%20Kecamatan%20Bojongloa%20Kidul!5e0!3m2!1sen!2sid!4v1718617881744!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Ketentuan Layanan</a>
+                <a href="kontak.html">Hubungi Kami</a>
+            </div>
+            <p class="copyright">© 2025 Kecamatan Babakan Ciparay. Hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- SCRIPT JAVASCRIPT ---
+        // Anda bisa menambahkan fungsionalitas JavaScript di sini.
+        // Tidak ada fungsionalitas dinamis yang diperlukan untuk halaman kontak ini,
+        // namun skrip ini disertakan untuk kelengkapan.
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Halaman Kontak berhasil dimuat.');
+            
+            // Contoh: Anda bisa menambahkan event listener ke elemen kontak
+            const phoneElement = document.querySelector('.fa-phone');
+            if(phoneElement) {
+                phoneElement.parentElement.style.cursor = 'pointer';
+                phoneElement.parentElement.addEventListener('click', () => {
+                    alert('Untuk menghubungi kami, silakan telepon ke nomor (022) 5204212.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

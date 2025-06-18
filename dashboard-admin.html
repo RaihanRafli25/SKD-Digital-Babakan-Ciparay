@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - e-SKD Babakan Ciparay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo i {
+            margin-right: 12px;
+            font-size: 24px;
+            color: #3498db;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(52, 152, 219, 0.2);
+            color: #ecf0f1;
+            border-left-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu a i {
+            margin-right: 15px;
+            font-size: 16px;
+            min-width: 20px;
+        }
+
+        .sidebar.collapsed .sidebar-menu a span {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo span {
+            display: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 70px;
+        }
+
+        .main-header {
+            background: white;
+            padding: 25px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-header h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-bell {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #7f8c8d;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .notification-bell:hover {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: #ecf0f1;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-profile:hover {
+            background: #d5dbdb;
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .stat-card.warning::before {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+        }
+
+        .stat-card.success::before {
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+        }
+
+        .stat-card.danger::before {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .stat-card.warning .stat-icon {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .stat-card.success .stat-icon {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .stat-card.danger .stat-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #95a5a6;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-trend.up {
+            color: #27ae60;
+        }
+
+        .stat-trend.down {
+            color: #e74c3c;
+        }
+
+        /* Content Box */
+        .content-section {
+            padding: 0 30px 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #b8e6c1;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f1aeb5;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .quick-action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-3px);
+            border-color: #3498db;
+        }
+
+        .quick-action-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .quick-action-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .quick-action-desc {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Search & Filter */
+        .search-filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #ecf0f1;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .filter-dropdown {
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar .logo span,
+            .sidebar .sidebar-menu a span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .main-header {
+                padding: 20px;
+            }
+
+            .content-section {
+                padding: 0 20px 20px;
+            }
+
+            .search-filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-user-shield"></i>
+                    <span>ADMIN e-SKD</span>
+                </a>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a></li>
+                <li><a href="#verification" onclick="showSection('verification')">
+                    <i class="fas fa-inbox"></i>
+                    <span>Verifikasi Pengajuan</span>
+                </a></li>
+                <li><a href="#history" onclick="showSection('history')">
+                    <i class="fas fa-history"></i>
+                    <span>Riwayat Surat</span>
+                </a></li>
+                <li><a href="#analytics" onclick="showSection('analytics')">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a></li>
+                <li><a href="#settings" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </a></li>
+                <li><a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <h2 id="page-title">Dashboard Petugas</h2>
+                <div class="header-actions">
+                    <button class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <div class="admin-profile">
+                        <div class="profile-avatar">A</div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="section active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Pengajuan Masuk</div>
+                                <div class="stat-number" data-target="8">0</div>
+                                <div class="stat-label">
+                                    <span class="stat-trend up"><i class="fas fa-arrow-up"></i> +12%</span>
+                                    vs minggu lalu
+                                </div>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-inbox"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Perlu Diverifikasi</div>
+                                <div class="stat-number" data-target="5">0</div>
+                                <div class="stat-label">
+                                    <span class="stat-trend down"><i class="fas fa-arrow-down"></i> -5%</span>
+                                    vs minggu lalu
+                                </div>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Telah Disetujui</div>
+                                <div class="stat-number" data-target="142">0</div>
+                                <div class="stat-label">
+                                    <span class="stat-trend up"><i class="fas fa-arrow-up"></i> +8%</span>
+                                    vs minggu lalu
+                                </div>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card danger">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Ditolak</div>
+                                <div class="stat-number" data-target="3">0</div>
+                                <div class="stat-label">
+                                    <span class="stat-trend up"><i class="fas fa-arrow-up"></i> +2</span>
+                                    bulan ini
+                                </div>
+                            </div>
+                            <div class="stat-icon">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="content-section">
+                    <div class="quick-actions">
+                        <div class="quick-action-card" onclick="showSection('verification')">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="quick-action-title">Verifikasi Cepat</div>
+                            <div class="quick-action-desc">Lihat pengajuan yang perlu diverifikasi</div>
+                        </div>
+                        <div class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-file-export"></i>
+                            </div>
+                            <div class="quick-action-title">Ekspor Data</div>
+                            <div class="quick-action-desc">Download laporan bulanan</div>
+                        </div>
+                        <div class="quick-action-card">
+                            <div class="quick-action-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="quick-action-title">Kelola User</div>
+                            <div class="quick-action-desc">Manajemen pengguna sistem</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Applications -->
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Pengajuan Terbaru yang Perlu Diverifikasi</h3>
+                            <div class="content-actions">
+                                <button class="btn btn-primary btn-sm" onclick="refreshData()">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="search-filter-bar">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="search-input" placeholder="Cari berdasarkan nama atau nomor tiket...">
+                            </div>
+                            <select class="filter-dropdown">
+                                <option>Semua Status</option>
+                                <option>Menunggu Verifikasi</option>
+                                <option>Disetujui</option>
+                                <option>Ditolak</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="applications-table">
+                                <thead>
+                                    <tr>
+                                        <th>No. Tiket</th>
+                                        <th>Nama Pemohon</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>SKD-2025-008</strong></td>
+                                        <td>Siti Nurhaliza</td>
+                                        <td>16 Juni 2025</td>
+                                        <td><span class="status-badge status-pending">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" onclick="verifyApplication('SKD-2025-008')">
+                                                <i class="fas fa-search"></i>
+                                                Verifikasi
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SKD-2025-007</strong></td>
+                                        <td>Ahmad Fauzi</td>
+                                        <td>16 Juni 2025</td>
+                                        <td><span class="status-badge status-pending">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" onclick="verifyApplication('SKD-2025-007')">
+                                                <i class="fas fa-search"></i>
+                                                Verifikasi
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SKD-2025-006</strong></td>
+                                        <td>Budi Santoso</td>
+                                        <td>15 Juni 2025</td>
+                                        <td><span class="status-badge status-approved">Disetujui</span></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm">
+                                                <i class="fas fa-check"></i>
+                                                Selesai
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SKD-2025-005</strong></td>
+                                        <td>Rina Wulandari</td>
+                                        <td>15 Juni 2025</td>
+                                        <td><span class="status-badge status-approved">Disetujui</span></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm">
+                                                <i class="fas fa-check"></i>
+                                                Selesai
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SKD-2025-004</strong></td>
+                                        <td>Dewi Sartika</td>
+                                        <td>14 Juni 2025</td>
+                                        <td><span class="status-badge status-rejected">Ditolak</span></td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-times"></i>
+                                                Ditolak
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Section -->
+            <div id="verification-section" class="section">
+                <div class="content-section">
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Detail Verifikasi Pengajuan</h3>
+                        </div>
+                        <div id="verification-content">
+                            <p>Pilih pengajuan dari tabel untuk melakukan verifikasi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div id="history-section" class="section">
+                <div class="content-section">
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Riwayat Semua Surat</h3>
+                        </div>
+                        <p>Riwayat surat akan ditampilkan di sini...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="section">
+                <div class="content-section">
+                    <!-- Analytics Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Total Pengajuan</div>
+                                    <div class="stat-number">2,847</div>
+                                    <div class="stat-label">Sepanjang masa</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card success">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Tingkat Persetujuan</div>
+                                    <div class="stat-number">94%</div>
+                                    <div class="stat-label">Bulan ini</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card warning">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Rata-rata Proses</div>
+                                    <div class="stat-number">1.2</div>
+                                    <div class="stat-label">Hari kerja</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-title">Kepuasan User</div>
+                                    <div class="stat-number">4.8</div>
+                                    <div class="stat-label">dari 5.0</div>
+                                </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Grafik Pengajuan Bulanan</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="monthlyChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Status Pengajuan</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="statusChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" class="section">
+                <div class="content-section">
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Pengaturan Sistem</h3>
+                        </div>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <h4>Pengaturan Umum</h4>
+                                <div class="setting-item">
+                                    <label>Batas Waktu Verifikasi (Jam)</label>
+                                    <input type="number" value="48" class="setting-input">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Maksimal Ukuran File (MB)</label>
+                                    <input type="number" value="5" class="setting-input">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Auto-approve untuk RT tertentu</label>
+                                    <select class="setting-input">
+                                        <option>Tidak</option>
+                                        <option>Ya</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h4>Notifikasi</h4>
+                                <div class="setting-item">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Email untuk pengajuan baru</span>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>SMS untuk persetujuan</span>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Laporan harian</span>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <h4>Keamanan</h4>
+                                <div class="setting-item">
+                                    <label>Ganti Password</label>
+                                    <button class="btn btn-warning btn-sm">
+                                        <i class="fas fa-key"></i>
+                                        Ubah Password
+                                    </button>
+                                </div>
+                                <div class="setting-item">
+                                    <label>Session Timeout (Menit)</label>
+                                    <input type="number" value="30" class="setting-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Simpan Pengaturan
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-undo"></i>
+                                Reset ke Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Global variables
+        let currentSection = 'dashboard';
+        let applications = [
+            { id: 'SKD-2025-008', name: 'Chandra Adprilana', date: '2025-06-13', status: 'pending', documents: ['KTP', 'KK', 'Surat RT'] },
+            { id: 'SKD-2025-007', name: 'Ahmad Fauzi', date: '2025-06-16', status: 'pending', documents: ['KTP', 'KK', 'Surat RT'] },
+            { id: 'SKD-2025-006', name: 'Budi Santoso', date: '2025-06-15', status: 'approved', documents: ['KTP', 'KK', 'Surat RT'] },
+            { id: 'SKD-2025-005', name: 'Rina Wulandari', date: '2025-06-15', status: 'approved', documents: ['KTP', 'KK', 'Surat RT'] },
+            { id: 'SKD-2025-004', name: 'Dewi Sartika', date: '2025-06-14', status: 'rejected', documents: ['KTP', 'KK'] }
+        ];
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounters();
+            renderApplicationsTable();
+            if (typeof Chart !== 'undefined') {
+                initCharts();
+            }
+        });
+
+        // Sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Show section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.add('active');
+            
+            // Update active menu
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Dashboard Petugas',
+                'verification': 'Verifikasi Pengajuan',
+                'history': 'Riwayat Surat',
+                'analytics': 'Analytics & Laporan',
+                'settings': 'Pengaturan Sistem'
+            };
+            document.getElementById('page-title').textContent = titles[sectionName];
+            
+            currentSection = sectionName;
+            
+            // Load section specific data
+            if (sectionName === 'verification') {
+                loadVerificationData();
+            } else if (sectionName === 'history') {
+                loadHistoryData();
+            } else if (sectionName === 'analytics') {
+                loadAnalyticsData();
+            }
+        }
+
+        // Animate counters
+        function animateCounters() {
+            document.querySelectorAll('[data-target]').forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.floor(current);
+                }, 20);
+            });
+        }
+
+        // Render applications table
+        function renderApplicationsTable() {
+            const tbody = document.querySelector('#applications-table tbody');
+            tbody.innerHTML = '';
+            
+            applications.forEach(app => {
+                const statusClass = app.status === 'pending' ? 'status-pending' : 
+                                   app.status === 'approved' ? 'status-approved' : 'status-rejected';
+                const statusText = app.status === 'pending' ? 'Pending' : 
+                                  app.status === 'approved' ? 'Disetujui' : 'Ditolak';
+                
+                const row = `
+                    <tr>
+                        <td><strong>${app.id}</strong></td>
+                        <td>${app.name}</td>
+                        <td>${formatDate(app.date)}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>
+                            ${app.status === 'pending' ? 
+                                `<button class="btn btn-primary btn-sm" onclick="verifyApplication('${app.id}')">
+                                    <i class="fas fa-search"></i> Verifikasi
+                                </button>` :
+                                `<button class="btn btn-${app.status === 'approved' ? 'success' : 'danger'} btn-sm">
+                                    <i class="fas fa-${app.status === 'approved' ? 'check' : 'times'}"></i> 
+                                    ${app.status === 'approved' ? 'Selesai' : 'Ditolak'}
+                                </button>`
+                            }
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        // Verify application
+        function verifyApplication(applicationId) {
+            showSection('verification');
+            loadApplicationDetail(applicationId);
+        }
+
+        // Load application detail for verification
+        function loadApplicationDetail(applicationId) {
+            const app = applications.find(a => a.id === applicationId);
+            if (!app) return;
+            
+            const verificationContent = document.getElementById('verification-content');
+            verificationContent.innerHTML = `
+                <div class="verification-detail">
+                    <div class="detail-header">
+                        <h4>Detail Pengajuan: ${app.id}</h4>
+                        <span class="status-badge status-${app.status}">${app.status.toUpperCase()}</span>
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="detail-section">
+                            <h5>Informasi Pemohon</h5>
+                            <div class="detail-item">
+                                <label>Nama Lengkap:</label>
+                                <span>${app.name}</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>NIK:</label>
+                                <span>3273010101850001</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Alamat:</label>
+                                <span>Jl. Merdeka No. 123, RT 01 RW 05, Babakan Ciparay</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Tanggal Pengajuan:</label>
+                                <span>${formatDate(app.date)}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h5>Dokumen Persyaratan</h5>
+                            <div class="document-list">
+                                ${app.documents.map(doc => `
+                                    <div class="document-item">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>${doc}</span>
+                                        <button class="btn btn-sm btn-primary" onclick="viewDocument('${doc}')">
+                                            <i class="fas fa-eye"></i> Lihat
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${app.status === 'pending' ? `
+                        <div class="verification-actions">
+                            <button class="btn btn-success" onclick="approveApplication('${app.id}')">
+                                <i class="fas fa-check"></i> Setujui
+                            </button>
+                            <button class="btn btn-danger" onclick="rejectApplication('${app.id}')">
+                                <i class="fas fa-times"></i> Tolak
+                            </button>
+                            <button class="btn btn-warning" onclick="requestRevision('${app.id}')">
+                                <i class="fas fa-edit"></i> Minta Revisi
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Load verification data
+        function loadVerificationData() {
+            const pendingApps = applications.filter(app => app.status === 'pending');
+            const verificationContent = document.getElementById('verification-content');
+            
+            if (pendingApps.length === 0) {
+                verificationContent.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h4>Tidak ada pengajuan yang perlu diverifikasi</h4>
+                        <p>Semua pengajuan telah diproses.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            verificationContent.innerHTML = `
+                <div class="verification-list">
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" placeholder="Cari pengajuan...">
+                        </div>
+                        <select class="filter-dropdown">
+                            <option>Semua</option>
+                            <option>Urgent</option>
+                            <option>Normal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="verification-cards">
+                        ${pendingApps.map(app => `
+                            <div class="verification-card" onclick="loadApplicationDetail('${app.id}')">
+                                <div class="card-header">
+                                    <h5>${app.id}</h5>
+                                    <span class="priority-badge normal">Normal</span>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Nama:</strong> ${app.name}</p>
+                                    <p><strong>Tanggal:</strong> ${formatDate(app.date)}</p>
+                                    <p><strong>Dokumen:</strong> ${app.documents.length} file</p>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-search"></i> Verifikasi
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load history data
+        function loadHistoryData() {
+            const historySection = document.getElementById('history-section');
+            const allApps = [...applications].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            historySection.innerHTML = `
+                <div class="content-section">
+                    <div class="content-box fade-in">
+                        <div class="content-header">
+                            <h3 class="content-title">Riwayat Semua Surat</h3>
+                            <div class="content-actions">
+                                <button class="btn btn-primary btn-sm" onclick="exportHistory()">
+                                    <i class="fas fa-download"></i> Export Excel
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="search-filter-bar">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="search-input" placeholder="Cari riwayat...">
+                            </div>
+                            <select class="filter-dropdown">
+                                <option>Semua Status</option>
+                                <option>Disetujui</option>
+                                <option>Ditolak</option>
+                                <option>Pending</option>
+                            </select>
+                            <input type="date" class="filter-dropdown">
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No. Tiket</th>
+                                        <th>Nama Pemohon</th>
+                                        <th>Tanggal Pengajuan</th>
+                                        <th>Tanggal Proses</th>
+                                        <th>Status</th>
+                                        <th>Petugas</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${allApps.map(app => {
+                                        const statusClass = app.status === 'pending' ? 'status-pending' : 
+                                                           app.status === 'approved' ? 'status-approved' : 'status-rejected';
+                                        const statusText = app.status === 'pending' ? 'Pending' : 
+                                                          app.status === 'approved' ? 'Disetujui' : 'Ditolak';
+                                        
+                                        return `
+                                            <tr>
+                                                <td><strong>${app.id}</strong></td>
+                                                <td>${app.name}</td>
+                                                <td>${formatDate(app.date)}</td>
+                                                <td>${app.status !== 'pending' ? formatDate(app.date) : '-'}</td>
+                                                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                                                <td>${app.status !== 'pending' ? 'Admin' : '-'}</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-primary" onclick="viewDetail('${app.id}')">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    ${app.status === 'approved' ? 
+                                                        `<button class="btn btn-sm btn-success" onclick="downloadSKD('${app.id}')">
+                                                            <i class="fas fa-download"></i>
+                                                        </button>` : ''
+                                                    }
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load analytics data
+        function loadAnalyticsData() {
+            setTimeout(() => {
+                if (typeof Chart !== 'undefined') {
+                    initCharts();
+                }
+            }, 100);
+        }
+
+        // Initialize charts (placeholder for Chart.js)
+        function initCharts() {
+            // Monthly applications chart
+            const monthlyCtx = document.getElementById('monthlyChart');
+            if (monthlyCtx) {
+                // Placeholder for actual chart implementation
+                monthlyCtx.style.background = '#f8f9fa';
+                monthlyCtx.style.borderRadius = '8px';
+                monthlyCtx.style.display = 'flex';
+                monthlyCtx.style.alignItems = 'center';
+                monthlyCtx.style.justifyContent = 'center';
+                monthlyCtx.innerHTML = '<p>Grafik Pengajuan Bulanan (Chart.js diperlukan)</p>';
+            }
+            
+            // Status distribution chart
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                statusCtx.style.background = '#f8f9fa';
+                statusCtx.style.borderRadius = '8px';
+                statusCtx.style.display = 'flex';
+                statusCtx.style.alignItems = 'center';
+                statusCtx.style.justifyContent = 'center';
+                statusCtx.innerHTML = '<p>Grafik Status Pengajuan (Chart.js diperlukan)</p>';
+            }
+        }
+
+        // Application actions
+        function approveApplication(applicationId) {
+            if (confirm('Apakah Anda yakin ingin menyetujui pengajuan ini?')) {
+                const app = applications.find(a => a.id === applicationId);
+                if (app) {
+                    app.status = 'approved';
+                    renderApplicationsTable();
+                    showNotification('Pengajuan berhasil disetujui!', 'success');
+                    showSection('dashboard');
+                }
+            }
+        }
+
+        function rejectApplication(applicationId) {
+            const reason = prompt('Masukkan alasan penolakan:');
+            if (reason) {
+                const app = applications.find(a => a.id === applicationId);
+                if (app) {
+                    app.status = 'rejected';
+                    app.rejectionReason = reason;
+                    renderApplicationsTable();
+                    showNotification('Pengajuan ditolak!', 'warning');
+                    showSection('dashboard');
+                }
+            }
+        }
+
+        function requestRevision(applicationId) {
+            const note = prompt('Masukkan catatan revisi:');
+            if (note) {
+                showNotification('Permintaan revisi telah dikirim!', 'info');
+            }
+        }
+
+        function viewDocument(docName) {
+            alert('Membuka dokumen: ' + docName);
+        }
+
+        function viewDetail(applicationId) {
+            verifyApplication(applicationId);
+        }
+
+        function downloadSKD(applicationId) {
+            alert('Mengunduh SKD untuk: ' + applicationId);
+        }
+
+        function exportHistory() {
+            alert('Mengekspor data riwayat ke Excel...');
+        }
+
+        function refreshData() {
+            showNotification('Data berhasil diperbarui!', 'success');
+            renderApplicationsTable();
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation' : 'info'}-circle"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Search functionality
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('search-input')) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('table tbody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            }
+        });
+    </script>
+
+    <style>
+        /* Additional styles for new sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .chart-container canvas {
+            max-height: 100%;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .setting-group {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .setting-group h4 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+
+        .setting-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 120px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #3498db;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .setting-actions {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .setting-actions .btn {
+            margin: 0 10px;
+        }
+
+        .verification-detail {
+            max-width: 800px;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail-section h5 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .detail-item label {
+            font-weight: 500;
+            color: #7f8c8d;
+            min-width: 120px;
+        }
+
+        .document-list {
+            space-y: 10px;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .document-item i {
+            color: #e74c3c;
+            font-size: 18px;
+        }
+
+        .verification-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .verification-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .verification-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .verification-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-header h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .priority-badge {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 15px;
+            text-transform: uppercase;
+            font-weight: 600;
+            background: #f1c40f;
+            color: #fff;
+        }
+
+        .priority-badge.normal {
+            background: #3498db;
+        }
+
+        .priority-badge.urgent {
+            background: #e74c3c;
+        }
+
+        .card-body p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+
+        .card-footer {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        /* Notification Style */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            border-left: 5px solid;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            min-width: 250px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification.success {
+            border-color: #2ecc71;
+        }
+
+        .notification.warning {
+            border-color: #f39c12;
+        }
+
+        .notification.info {
+            border-color: #3498db;
+        }
+
+        .notification i {
+            font-size: 18px;
+            color: inherit;
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }

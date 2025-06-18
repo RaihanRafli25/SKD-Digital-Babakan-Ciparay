@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pengajuan SKD - e-SKD Babakan Ciparay</title>
+    <style>
+        /* =================================================================
+           STYLE CSS - E-GOV BABAKAN CIPARAY (ENHANCED PROFESSIONAL VERSION)
+           Enhanced by AI Assistant for modern government website design
+           ================================================================= */
+
+        /* --- 1. CSS Variables for Consistent Design --- */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #059669;
+            --accent-color: #dc2626;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        /* --- 2. Global & Typography --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* --- 3. Enhanced Header & Navigation --- */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            right: -10px;
+            bottom: -5px;
+            background: linear-gradient(135deg, var(--primary-color)20, var(--secondary-color)20);
+            border-radius: var(--radius-md);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .logo:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 80%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* --- 4. Enhanced Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- 5. Enhanced Sections --- */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(5, 150, 105, 0.03) 100%);
+            z-index: -1;
+        }
+
+        .section:nth-child(even) {
+            background: white;
+        }
+
+        .section:nth-child(even)::before {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.03) 0%, rgba(37, 99, 235, 0.03) 100%);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section > p {
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        /* --- 6. Enhanced Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg,
+                rgba(37, 99, 235, 0.9) 0%,
+                rgba(5, 150, 105, 0.8) 50%,
+                rgba(37, 99, 235, 0.9) 100%
+            ),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            background-size: cover, 50px 50px;
+            background-position: center, center;
+            color: white;
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero .btn {
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* --- 7. Enhanced Feature Cards --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- 8. Enhanced Form Styles --- */
+        .form-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+        }
+
+        .form-container {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .form-container.form-lg {
+            max-width: 800px;
+        }
+
+        .form-container h1 {
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-group input[readonly] {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+        }
+
+        /* --- 9. Enhanced Status Results --- */
+        .status-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .status-result h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .status-result p {
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 0.375rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .status-disetujui {
+            background: linear-gradient(135deg, var(--secondary-color), #10b981);
+            color: white;
+        }
+
+        .status-diproses {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .status-ditolak {
+            background: linear-gradient(135deg, var(--accent-color), #dc2626);
+            color: white;
+        }
+
+        /* --- 10. Enhanced Contact Page --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .contact-info i {
+            width: 1.25rem;
+            font-size: 1.125rem;
+            color: var(--primary-color);
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .contact-map {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* --- 11. Enhanced Footer --- */
+        .footer {
+            background: linear-gradient(135deg, var(--text-primary) 0%, #374151 100%);
+            color: white;
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .footer-links {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* --- 12. Animations --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* --- 13. Responsive Design --- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 2rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.75rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* --- 14. Utility Classes --- */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+
+        /* --- 15. Print Styles --- */
+        @media print {
+            .header, .footer {
+                display: none;
+            }
+            
+            .form-container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Babakan Ciparay</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="form-pengajuan.html" class="active">Ajukan SKD</a></li>
+                <li><a href="cek-status.html">Cek Status</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+                <li><a href="login.html" class="btn btn-primary">Login</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <div class="form-container form-lg">
+                <h1>Pengajuan Surat Keterangan Domisili Digital</h1>
+                <form action="#" id="skdForm">
+                    <div class="form-group">
+                        <label for="certificate-type">Jenis Surat</label>
+                        <input type="text" id="certificate-type" name="certificate-type" value="Surat Keterangan Domisili" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="full-name">Nama Lengkap</label>
+                        <input type="text" id="full-name" name="full-name" placeholder="Masukkan nama lengkap sesuai KTP" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nik">NIK</label>
+                        <input type="text" id="nik" name="nik" placeholder="Masukkan 16 digit NIK" required>
+                    </div>
+                     <div class="form-group">
+                        <label for="pob">Tempat Lahir</label>
+                        <input type="text" id="pob" name="pob" placeholder="Masukkan kota tempat lahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Tanggal Lahir</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Jenis Kelamin</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="laki-laki">Laki-laki</option>
+                            <option value="perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="marital-status">Status Perkawinan</label>
+                        <input type="text" id="marital-status" name="marital-status" placeholder="Contoh: Belum Kawin, Kawin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="religion">Agama</label>
+                        <input type="text" id="religion" name="religion" placeholder="Masukkan agama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Pekerjaan</label>
+                        <input type="text" id="occupation" name="occupation" placeholder="Contoh: Pelajar/Mahasiswa, Karyawan Swasta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Alamat</label>
+                        <input type="text" id="address" name="address" placeholder="Masukkan alamat lengkap sesuai KTP" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Keperluan Pengajuan</label>
+                        <input type="text" id="reason" name="reason" placeholder="Contoh: Untuk melamar pekerjaan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Nomor Telepon</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Masukkan nomor telepon aktif" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan alamat email aktif" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file-upload">Unggah Dokumen Persyaratan (KTP, KK, Surat Pengantar RT/RW dalam 1 file PDF)</label>
+                        <input type="file" id="file-upload" name="file-upload" accept=".pdf" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kirim Pengajuan</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+         <div class="container">
+            <div class="footer-links">
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Ketentuan Layanan</a>
+                <a href="kontak.html">Hubungi Kami</a>
+            </div>
+            <p class="copyright">© 2025 Kecamatan Babakan Ciparay. Hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- SCRIPT JAVASCRIPT ---
+        // Anda bisa menambahkan fungsionalitas JavaScript di sini.
+        // Contoh: validasi form sebelum pengiriman.
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('skdForm');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    // Mencegah form dikirim secara default
+                    event.preventDefault();
+                    
+                    // Lakukan validasi kustom di sini
+                    const nikInput = document.getElementById('nik');
+                    const phoneInput = document.getElementById('phone');
+                    let isValid = true;
+                    
+                    // Contoh validasi sederhana: NIK harus 16 digit angka
+                    if (!/^\d{16}$/.test(nikInput.value)) {
+                        alert('NIK harus terdiri dari 16 digit angka.');
+                        nikInput.focus();
+                        isValid = false;
+                        return;
+                    }
+
+                    // Contoh validasi sederhana: Nomor telepon harus diawali 08 dan berisi angka
+                    if (!/^08\d{8,12}$/.test(phoneInput.value)) {
+                        alert('Format nomor telepon tidak valid. Contoh: 081234567890');
+                        phoneInput.focus();
+                        isValid = false;
+                        return;
+                    }
+
+                    // Jika semua validasi lolos
+                    if (isValid) {
+                        // Tampilkan pesan sukses (untuk demonstrasi)
+                        alert('Pengajuan Anda berhasil dikirim! Silakan cek status secara berkala.');
+                        
+                        // Di aplikasi nyata, Anda akan mengirim data form ke server di sini
+                        // menggunakan fetch() atau XMLHttpRequest.
+                        // Contoh:
+                        // const formData = new FormData(form);
+                        // fetch('/submit-skd', {
+                        //     method: 'POST',
+                        //     body: formData
+                        // })
+                        // .then(response => response.json())
+                        // .then(data => {
+                        //     console.log('Success:', data);
+                        //     window.location.href = 'cek-status.html?id=' + data.submissionId;
+                        // })
+                        // .catch((error) => {
+                        //     console.error('Error:', error);
+                        //     alert('Terjadi kesalahan saat mengirim data.');
+                        // });
+
+                        // Reset form setelah pengiriman
+                        form.reset();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
